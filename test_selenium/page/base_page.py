@@ -31,9 +31,13 @@ class BasePage:
     def wait_element(self, timeout, method):
         return WebDriverWait(self._driver, timeout=timeout).until(method)
 
+    def find(self, by, locator="") -> WebElement:
+        if isinstance(by, tuple):
+            return self._driver.find_element(*by)
 
-    def find(self, locator) -> WebElement:
-        return self._driver.find_element(*locator)
+        print(locator)
+
+        return self._driver.find_element(by, locator)
 
     def close(self):
         time.sleep(10)

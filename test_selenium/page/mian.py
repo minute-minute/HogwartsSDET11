@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 from test_selenium.page.base_page import BasePage
 from test_selenium.page.contact import Contact
+from test_selenium.page.material import Material
 
 
 class Main(BasePage):
@@ -10,9 +11,14 @@ class Main(BasePage):
     def download_app(self):
         pass
 
-    def import_user(self):
+    def import_user(self, file):
         # upload file of excel
-        pass
+        self.find((By.PARTIAL_LINK_TEXT, '导入成员')).click()
+        self.find((By.CSS_SELECTOR, 'a[d_ck="importJump"]')).click()
+        self.find((By.CSS_SELECTOR, '#js_upload_file_input')).send_keys(file)
+        self.find((By.CSS_SELECTOR, '#submit_csv')).click()
+        self.find((By.CSS_SELECTOR, '#reloadContact')).click()
+        return self
 
     def goto_company(self):
         pass
@@ -28,3 +34,8 @@ class Main(BasePage):
 
     def send_message(self, data):
         pass
+
+    def add_material(self):
+        self.find((By.CSS_SELECTOR, '#menu_manageTools')).click()
+        self.find(By.CSS_SELECTOR, 'a[href="#material/text"]').click()
+        return Material(reuse=True)

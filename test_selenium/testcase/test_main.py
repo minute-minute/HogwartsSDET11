@@ -19,10 +19,14 @@ class TestMain:
         assert self.main.show_message()
     
     def test_import_user(self):
-        self.main.import_user("xxx.file")
-        assert self.mian.show_message()
+        self.main.import_user('F:/HogwartsSDET11/test_selenium/testcase/通讯录批量导入模板.xlsx')
+        assert self.main.show_message()
     
     def test_send_message(self):
         message = {}
         self.main.send_message(message)
-        assert self.mian.show_message()
+        assert self.main.show_message()
+
+    def test_upload_image(self):
+        self.main.add_material().upload_image('F:/HogwartsSDET11/test_selenium/testcase/test.jpg')
+        assert self.main.show_message()
