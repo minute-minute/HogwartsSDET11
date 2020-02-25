@@ -1,8 +1,11 @@
+import time
+
 from selenium.webdriver.common.by import By
 
 from test_selenium.page.base_page import BasePage
 from test_selenium.page.contact import Contact
 from test_selenium.page.material import Material
+from test_selenium.page.message import Message
 
 
 class Main(BasePage):
@@ -32,8 +35,18 @@ class Main(BasePage):
         # self._driver.execute_script('arguments[0].click();', self.find(locator))
         return Contact(reuse=True)
 
-    def send_message(self, data):
-        pass
+    def member_info(self, member_name):
+        self.find(By.CSS_SELECTOR, '#menu_contacts').click()
+        # 当前部门尚有x人未加入的提示会影响点击错位
+        time.sleep(2)
+        self.find(By.CSS_SELECTOR, 'td[title="%s"]' % member_name).click()
+        self.find(By.CLASS_NAME, 'js_edit').click()
+        return Contact(reuse=True)
+
+    def send_message(self):
+        self.find(By.CSS_SELECTOR, '.js_groupMessage').click()
+
+        return Message(reuse=True)
 
     def add_material(self):
         self.find((By.CSS_SELECTOR, '#menu_manageTools')).click()

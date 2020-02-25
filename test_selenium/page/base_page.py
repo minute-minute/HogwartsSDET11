@@ -1,4 +1,6 @@
 import time
+from typing import List
+
 from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
@@ -38,6 +40,14 @@ class BasePage:
         print(locator)
 
         return self._driver.find_element(by, locator)
+
+    def finds(self, by, locator="") -> List[WebElement]:
+        if isinstance(by, tuple):
+            return self._driver.find_elements(*by)
+
+        print(locator)
+
+        return self._driver.find_elements(by, locator)
 
     def close(self):
         time.sleep(10)

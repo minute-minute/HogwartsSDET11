@@ -20,13 +20,30 @@ class Contact(BasePage):
 
     def __input_member_data(self, member):
         # write member info
-        self.find((By.NAME, 'acctid')).send_keys(member['id'])
-        self.find((By.NAME, 'username')).send_keys(member['name'])
-        self.find((By.CSS_SELECTOR, 'input[name="gender"][value="%s"]' % member['gender'])).click()
-        self.find((By.CSS_SELECTOR, 'li[data-value="853"]')).click()
-        self.find((By.NAME, 'mobile')).send_keys(member['mobile'])
-        self.find((By.NAME, 'xcx_corp_address')).send_keys(member['address'])
-        self.find((By.NAME, 'position')).send_keys(member['title'])
+        if 'id' in member:
+            acctid = (By.NAME, 'acctid')
+            self.find(acctid).clear()
+            self.find(acctid).send_keys(member['id'])
+        if 'name' in member:
+            name = (By.NAME, 'username')
+            self.find(name).clear()
+            self.find(name).send_keys(member['name'])
+        if 'gender' in member:
+            self.find((By.CSS_SELECTOR, 'input[name="gender"][value="%s"]' % member['gender'])).click()
+        if 'mobile_area' in member:
+            self.find((By.CSS_SELECTOR, 'li[data-value="853"]')).click()
+        if 'mobile' in member:
+            mobile = (By.NAME, 'mobile')
+            self.find(mobile).clear()
+            self.find(mobile).send_keys(member['mobile'])
+        if 'address' in member:
+            address = (By.NAME, 'xcx_corp_address')
+            self.find(address).clear()
+            self.find(address).send_keys(member['address'])
+        if 'title' in member:
+            title = (By.NAME, 'position')
+            self.find(title).clear()
+            self.find(title).send_keys(member['title'])
 
     def add_member_more(self, member):
         self.__input_member_data(member)
