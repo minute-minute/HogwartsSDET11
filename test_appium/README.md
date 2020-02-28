@@ -24,3 +24,11 @@ aapt dump badging mobike.apk | grep launchable-activity
 adb shell am start -W -n com.xueqiu.android/.view.WelcomeActivityAlias -S
 // com.xueqiu.android/.view.WelcomeActivityAlias app入口
 ```
+
+#### appium
+```
+<!-- -g:将控制台打印输出到指定文件 -->
+appium -g appium.log --log-timestamp --local-timezone
+```
+
+待：hamcrest
