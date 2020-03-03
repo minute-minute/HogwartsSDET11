@@ -1,7 +1,9 @@
 from appium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
 
 from test_appium.page.base_page import BasePage
 from test_appium.page.main import Main
+import logging
 
 
 class App(BasePage):
@@ -42,4 +44,19 @@ class App(BasePage):
         return self
 
     def main(self):
+        def is_loaded(driver):
+            loaded_tag = ['同意', '我的']
+            source = self._driver.page_source
+            for tag in loaded_tag:
+                if tag in source:
+                    return True
+
+                if loaded_tag[-1] == tag:
+                    return False
+
+            return True
+
+        logging.info('wait main page init.')
+        # wait main page init
+        WebDriverWait(self._driver, 30).until(is_loaded)
         return Main(self._driver)

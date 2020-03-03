@@ -38,7 +38,7 @@ appium -g appium.log --log-timestamp --local-timezone
 待：hamcrest
 
 #### po
-1.po接口设计
-2.用例编写
-3.po实现
+1.po接口设计  
+2.用例编写  
+3.po实现  
 4.用例联调
