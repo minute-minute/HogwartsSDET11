@@ -30,6 +30,10 @@ adb shell am start -W -n com.xueqiu.android/.view.WelcomeActivityAlias -S
 <!-- -g:将控制台打印输出到指定文件 -->
 appium -g appium.log --log-timestamp --local-timezone
 ```
+查找toast：  
+1.uiautomator2
+2.@class='android.widget.Toast'
+
 
 待：hamcrest
 
