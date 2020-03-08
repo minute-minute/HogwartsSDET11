@@ -16,7 +16,6 @@ class TestXueqiu:
         self.__search_input_locator = (MobileBy.ID, 'search_input_text')
         self.__trade_locator = (MobileBy.XPATH, '//*[contains(@resource-id, "tab_name") and @text="交易"]')
 
-
     def __init_app(self):
         caps = {}
         caps['deviceName'] = 'xu'
