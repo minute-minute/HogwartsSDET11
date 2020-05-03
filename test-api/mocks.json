@@ -1,0 +1,106 @@
+{
+  "data": {
+    "pid": -1,
+    "category": 1,
+    "stocks": [
+      {
+        "symbol": "SH600028",
+        "name": "中国石化",
+        "type": 11,
+        "remark": "",
+        "exchange": "SH",
+        "created": 1585475732821
+      },
+      {
+        "symbol": "SH601939",
+        "name": "建设银行",
+        "type": 11,
+        "remark": "",
+        "exchange": "SH",
+        "created": 1585475732821
+      },
+      {
+        "symbol": "SZ002223",
+        "name": "鱼跃医疗",
+        "type": 11,
+        "remark": "",
+        "exchange": "SZ",
+        "created": 1585475732821
+      },
+      {
+        "symbol": "SZ002594",
+        "name": "比亚迪",
+        "type": 11,
+        "remark": "",
+        "exchange": "SZ",
+        "created": 1585475732821
+      },
+      {
+        "symbol": "SZ002677",
+        "name": "浙江美大",
+        "type": 11,
+        "remark": "",
+        "exchange": "SZ",
+        "created": 1585475732821
+      },
+      {
+        "symbol": "SZ002768",
+        "name": "国恩股份",
+        "type": 11,
+        "remark": "",
+        "exchange": "SZ",
+        "created": 1585475732821
+      },
+      {
+        "symbol": "SH600028",
+        "name": "中国石化",
+        "type": 11,
+        "remark": "",
+        "exchange": "SH",
+        "created": 1585475732821
+      },
+      {
+        "symbol": "SH601939",
+        "name": "建设银行",
+        "type": 11,
+        "remark": "",
+        "exchange": "SH",
+        "created": 1585475732821
+      },
+      {
+        "symbol": "SZ002223",
+        "name": "鱼跃医疗",
+        "type": 11,
+        "remark": "",
+        "exchange": "SZ",
+        "created": 1585475732821
+      },
+      {
+        "symbol": "SZ002594",
+        "name": "比亚迪",
+        "type": 11,
+        "remark": "",
+        "exchange": "SZ",
+        "created": 1585475732821
+      },
+      {
+        "symbol": "SZ002677",
+        "name": "浙江美大",
+        "type": 11,
+        "remark": "",
+        "exchange": "SZ",
+        "created": 1585475732821
+      },
+      {
+        "symbol": "SZ002768",
+        "name": "国恩股份",
+        "type": 11,
+        "remark": "",
+        "exchange": "SZ",
+        "created": 1585475732821
+      }
+    ]
+  },
+  "error_code": 0,
+  "error_description": ""
+}

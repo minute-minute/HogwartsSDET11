@@ -46,7 +46,7 @@ class TestXueqiu:
     def test_search(self):
         time.sleep(40)
         # noReset=False时只在启动时会出现一次
-        self.driver.find_element(MobileBy.ID, 'tv_agree').click()
+        # self.driver.find_element(MobileBy.ID, 'tv_agree').click()
         self.find(self.__search_locator).click()
         self.find(self.__search_input_locator).send_keys('阿里')
 
@@ -136,7 +136,7 @@ class TestXueqiu:
 
         # 注：html加载问题，元素存在，但还不可以进行交互，需要显示等待
         phone_locator = (By.ID, 'phone-number')
-        WebDriverWait(self, 20).until(expected_conditions.visibility_of_element_located(*phone_locator))
+        WebDriverWait(self.driver, 20).until(expected_conditions.visibility_of_element_located(phone_locator))
         self.find(phone_locator).send_keys('13511112222')
         self.find(By.ID, 'code').send_keys('123456')
         self.find(By.CSS_SELECTOR, '.btn-submit').click()
