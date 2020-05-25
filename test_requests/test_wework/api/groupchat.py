@@ -5,9 +5,12 @@ from test_requests.test_wework.api.wework import WeWork
 
 
 class GroupChat:
+    # TODO: 自动加解密
+    # TODO: 多环境支持，根据配置可以一套case测试多套环境，需要修改host
+
     base_url = 'https://qyapi.weixin.qq.com/cgi-bin/externalcontact/groupchat/'
     # 客户联系人的
-    secret = '_hteCZ6Y__Mz-QUd9wmxtrgiFyLMayHJSqsUP_Gx3Wk'
+    groupchat_secret = '_hteCZ6Y__Mz-QUd9wmxtrgiFyLMayHJSqsUP_Gx3Wk'
 
     proxies = {
         'http': 'http://127.0.0.1:8888',
@@ -21,7 +24,7 @@ class GroupChat:
         self.groupchat_session.verify = False
 
         # token
-        self.groupchat_session.params['access_token'] = WeWork.get_token(self.secret)
+        self.groupchat_session.params['access_token'] = WeWork.get_token(self.groupchat_secret)
 
     def list(self, body={}):
         url = urljoin(self.base_url, 'list')

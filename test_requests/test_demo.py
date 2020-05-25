@@ -1,3 +1,6 @@
+import json
+from jsonpath import jsonpath
+from jsonschema import validate
 import requests
 from requests import *
 
@@ -73,7 +76,7 @@ def test_session():
 
 
 def test_get_hook():
-    TODO: r的用法
+    # TODO: r的用法
     def modify_response(r: Response, *args, **kwargs):
         # r.content = 'ok hook success'
         r.demo = 'demo name'
@@ -92,3 +95,26 @@ def test_get_hook():
                         )
     print(res.json())
     assert res.status_code == 200
+
+def test_jsonpath():
+    res = requests.get('https://home.testing-studio.com/categories.json')
+    assert res.status_code == 200
+
+    # r = json.dumps(res.json(), indent=2, ensure_ascii=False)
+    r = jsonpath(res.json(), '$..categories[?(@.name=="开源项目")]')
+    print(r)
+
+    description = r[0]['description']
+    assert description == "开源项目交流与维护"
+
+def test_schema():
+    res = requests.get('https://home.testing-studio.com/categories.json')
+    assert res.status_code == 200
+
+    r = json.dumps(res.json(), indent=2, ensure_ascii=False)
+    print(r)
+
+    # TODO: 待生成文件
+    with open('categories_schema.json') as f:
+        schema = json.loads(f)
+        validate(r.json, schema)

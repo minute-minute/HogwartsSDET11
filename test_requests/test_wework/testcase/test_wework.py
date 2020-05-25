@@ -21,21 +21,3 @@ class TestWework:
         token = WeWork.get_token(self.app_corpsecret)
 
         assert token is not None
-
-    def test_get_group_chat_list(self):
-        group_chat_list = self.groupchat.list()
-
-        print('group_chat_list: ', group_chat_list)
-
-        assert group_chat_list['errcode'] == 0
-
-    def test_get_group_chat_detail(self):
-        group_chat_list = self.groupchat.list()
-
-        chat_id = group_chat_list['group_chat_list'][0]['chat_id']
-
-        res = self.groupchat.get(chat_id)
-
-        print('group_chat_detail: ', res)
-
-        assert len(res['group_chat']['member_list']) > 0

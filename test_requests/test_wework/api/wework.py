@@ -1,7 +1,9 @@
 import requests
 
+from test_requests.test_wework.api.base_api import BaseApi
 
-class WeWork:
+
+class WeWork(BaseApi):
     corpid = 'wwf59ffdcb6d9bef43'
 
     token_url = 'https://qyapi.weixin.qq.com/cgi-bin/gettoken'
