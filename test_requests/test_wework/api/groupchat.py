@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 from test_requests.test_wework.api.wework import WeWork
 
 
-class GroupChat:
+class GroupChat(WeWork):
     # TODO: 自动加解密
     # TODO: 多环境支持，根据配置可以一套case测试多套环境，需要修改host
 

@@ -1,4 +1,3 @@
-from jsonpath import jsonpath
 from test_requests.test_wework.api.department import Department
 
 
@@ -44,7 +43,7 @@ class TestDepartment:
         assert r['errcode'] == 0
         assert len(r['department']) == 4
         
-        has_department = jsonpath(r, '$.department[?(@.name == "minute研发中心")]')
+        has_department = self.department.jsonpath(r, '$.department[?(@.name == "minute研发中心")]')
         assert has_department
 
     def test_delete_department(self):

@@ -3,7 +3,7 @@ from test_requests.test_wework.api.wework import WeWork
 from urllib.parse import urljoin
 
 
-class Department:
+class Department(WeWork):
     base_url = 'https://qyapi.weixin.qq.com/cgi-bin/department/'
     sync_of_contacts_secret = 'xdFfp4IPDSljjc6W6Gx9hZgriN1PEb_hUh-mW6ZzhDE'
 
