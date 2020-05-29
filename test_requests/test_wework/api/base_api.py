@@ -5,6 +5,8 @@ from jsonpath import jsonpath
 
 
 class BaseApi:
+    _params = {}
+
     def __init__(self):
         pass
 
@@ -23,6 +25,22 @@ class BaseApi:
     def api_send(self, req: dict):
         req['params']['access_token'] = self.get_token(self.secret)
 
+        # 模板内容替换
+        # TODO: format实现
+        # 将req转为字符串方便替换
+        raw:str = yaml.dump(req)
+        for k, v in self._params.items():
+            # repr 将对象转化为供解释器读取的形式，如符号*
+            raw = raw.replace(f"${{{k}}}", repr(v))
+        
+        req = yaml.safe_load(raw)
+
+        print(req)
+
+        # req_params = req['params']
+        # # 通过ininstance可以使取出来的变量含有类型，方便后续使用
+        # if isinstance(req_params, dict):
+        #     req_params.update()
 
         r = requests.request(
             req['method'],

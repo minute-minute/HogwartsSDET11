@@ -20,36 +20,45 @@ class TestCorpTag():
 
         assert r['errcode'] == 0
 
-    def test_get_corp_tag(self):
-        body = {
-            "tag_id": [
-                "etXXXXXXXXXX",
-                "etYYYYYYYYYY"
-            ]
-        }
-        r = self.corptag.get()
+    # def test_get_corp_tag(self):
+    #     body = {
+    #         "tag_id": [
+    #             "etXXXXXXXXXX",
+    #             "etYYYYYYYYYY"
+    #         ]
+    #     }
+    #     r = self.corptag.get()
 
-        print(r)
+    #     print(r)
 
-        assert r['errcode'] == 0
+    #     assert r['errcode'] == 0
+
+    # def test_add_corp_tag(self):
+    #     # tag.name required
+    #     body = {
+    #         "group_id": "eta5cUCgAARJtCoUzDTc2CtbCc_avCXQ",
+    #         # "group_name": "GROUP_NAME",
+    #         # "order": 1,
+    #         "tag": [{
+    #                 "name": "TAG_NAME_1",
+    #                 # "order": 1
+    #             },
+    #             # {
+    #             #     "name": "TAG_NAME_2",
+    #             #     "order": 2
+    #             # }
+    #         ]
+    #     }
+    #     r = self.corptag.add(body)
+
+    #     print(r)
+
+    #     assert r['errcode'] == 0
 
     def test_add_corp_tag(self):
         # tag.name required
-        body = {
-            "group_id": "eta5cUCgAARJtCoUzDTc2CtbCc_avCXQ",
-            # "group_name": "GROUP_NAME",
-            # "order": 1,
-            "tag": [{
-                    "name": "TAG_NAME_1",
-                    # "order": 1
-                },
-                # {
-                #     "name": "TAG_NAME_2",
-                #     "order": 2
-                # }
-            ]
-        }
-        r = self.corptag.add(body)
+        name = "TAG_NAME_2"
+        r = self.corptag.add(name)
 
         print(r)
 
@@ -79,13 +88,13 @@ class TestCorpTag():
 
         print(find_tag_path)
 
-        add_body = {
-            "group_id": "eta5cUCgAARJtCoUzDTc2CtbCc_avCXQ",
-            "tag": [{
-                    "name": name
-                }
-            ]
-        }
+        # add_body = {
+        #     "group_id": "eta5cUCgAARJtCoUzDTc2CtbCc_avCXQ",
+        #     "tag": [{
+        #             "name": name
+        #         }
+        #     ]
+        # }
         # 获取原始数据
         source_tags = self.corptag.get()
 
@@ -104,7 +113,7 @@ class TestCorpTag():
         print(source_tags_size)
 
         # 添加tag
-        self.corptag.add(add_body)
+        self.corptag.add(name)
         add_tags = self.corptag.get()
         print(add_tags)
         assert len(self.corptag.jsonpath(add_tags, tags_path)) == (source_tags_size + 1)
@@ -114,12 +123,13 @@ class TestCorpTag():
         print(result)
 
         # 删除tag
-        delete_body = {
-            "tag_id": [
-                result[0]['id']
-            ]
-        }
-        r = self.corptag.delete(delete_body)
+        # delete_body = {
+        #     "tag_id": [
+        #         result[0]['id']
+        #     ]
+        # }
+        tag_id = result[0]['id']
+        r = self.corptag.delete(tag_id)
 
         # 断言
         print(r)

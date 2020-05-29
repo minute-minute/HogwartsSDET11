@@ -5,3 +5,24 @@ get:
     access_token: ${token}
   json: 
     tag_id: []
+
+add:
+  method: post
+  url: https://qyapi.weixin.qq.com/cgi-bin/externalcontact/add_corp_tag
+  params: 
+    access_token: ${token}
+  json: 
+    group_id: eta5cUCgAARJtCoUzDTc2CtbCc_avCXQ
+    tag:
+      -
+        name: ${name}
+
+delete:
+  method: post
+  url: https://qyapi.weixin.qq.com/cgi-bin/externalcontact/del_corp_tag
+  params: {}
+  json: 
+    group_id: 
+      - ${group_id}
+    tag_id:
+      - ${tag_id}
