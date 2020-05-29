@@ -10,7 +10,8 @@ class GroupChat(WeWork):
 
     base_url = 'https://qyapi.weixin.qq.com/cgi-bin/externalcontact/groupchat/'
     # 客户联系人的
-    groupchat_secret = '_hteCZ6Y__Mz-QUd9wmxtrgiFyLMayHJSqsUP_Gx3Wk'
+    # groupchat
+    secret = '_hteCZ6Y__Mz-QUd9wmxtrgiFyLMayHJSqsUP_Gx3Wk'
 
     proxies = {
         'http': 'http://127.0.0.1:8888',
@@ -24,7 +25,7 @@ class GroupChat(WeWork):
         self.groupchat_session.verify = False
 
         # token
-        self.groupchat_session.params['access_token'] = WeWork.get_token(self.groupchat_secret)
+        self.groupchat_session.params['access_token'] = WeWork.get_token(self.secret)
 
     def list(self, body={}):
         url = urljoin(self.base_url, 'list')

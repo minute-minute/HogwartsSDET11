@@ -1,13 +1,24 @@
+import pytest
 from test_requests.test_wework.api.base_api import BaseApi
 from test_requests.test_wework.api.corp_tag import CorpTag
 
 
 class TestCorpTag():
+    test_data = BaseApi.yaml_load('test_requests/test_wework/testcase/test_corptag.data.yml')
+
     @classmethod
     def setup_class(cls):
         # TODO： 删除测试数据，将需要数据封装
 
         cls.corptag = CorpTag()
+
+    def test_get_api_corp_tag(self):
+
+        r = self.corptag.get()
+
+        print(r)
+
+        assert r['errcode'] == 0
 
     def test_get_corp_tag(self):
         body = {
@@ -57,8 +68,12 @@ class TestCorpTag():
 
         assert r['errcode'] == 0
 
-    def test_delete_corp_tag(self):
-        name = "TAG_NAME_1"
+    # @pytest.mark.parametrize('name', [
+    #     'demo1', '中文测试', '*', '', '123'
+    # ])
+    @pytest.mark.parametrize('name', test_data['test_delete'])
+    def test_delete_corp_tag(self, name):
+        # name = "TAG_NAME_1"
         tags_path = '$..tag[?(@.name != "")]'
         find_tag_path = '$..tag[?(@.name=="{}")]'.format(name)
 

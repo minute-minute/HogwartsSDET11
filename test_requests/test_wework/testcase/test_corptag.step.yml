@@ -1,0 +1,20 @@
+# TODO: 步骤的解析
+test_delete:
+  - 
+    method: get
+    extract: ''
+  - 
+    method: delete
+    assertion: xxx
+
+test_delete2:
+  - 
+    method: get
+    url: xxx
+    query: {}
+    json: {}
+    extract: ''
+  - 
+    method: delete
+    assertion: xxx
+

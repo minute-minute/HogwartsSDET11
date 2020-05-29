@@ -72,3 +72,7 @@ class BasePage:
 
     def find_by_id(self, key):
         return self.find(self.__id(key))
+
+    # TODO: appium的数据驱动
+    def steps(self):
+        pass

@@ -5,13 +5,14 @@ from urllib.parse import urljoin
 
 class Department(WeWork):
     base_url = 'https://qyapi.weixin.qq.com/cgi-bin/department/'
-    sync_of_contacts_secret = 'xdFfp4IPDSljjc6W6Gx9hZgriN1PEb_hUh-mW6ZzhDE'
+    # sync_of_contacts
+    secret = 'xdFfp4IPDSljjc6W6Gx9hZgriN1PEb_hUh-mW6ZzhDE'
 
     def __init__(self):
         self.session = requests.Session()
         self.session.verify = False
 
-        token = WeWork.get_token(self.sync_of_contacts_secret)
+        token = WeWork.get_token(self.secret)
         self.session.params.update({'access_token': token})
 
     def create(self, body):
