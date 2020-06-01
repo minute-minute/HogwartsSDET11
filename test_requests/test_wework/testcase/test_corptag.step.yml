@@ -1,11 +1,48 @@
 # TODO: 步骤的解析
 test_delete:
   - 
-    method: get
-    extract: ''
+    method: corptag.get
+  -
+    path: '$..tag[?(@.name=="{$(name)}")]'
+    extract: name
   - 
-    method: delete
-    assertion: xxx
+    method: corptag.delete
+    conditions: xx
+  -
+    method: corptag.get
+  -
+    path: '$..tag[?(@.name != "")]'
+    extract: size_before
+  -
+    method: corptag.add
+  -
+    method: corptag.get
+  -
+    path: '$..tag[?(@.name != "")]'
+    extract: size_after
+  -
+    assertion: size_before == size_after
+
+test_add:
+  - 
+    method: corptag.get
+  -
+    path: '$..tag[?(@.name != "")]'
+    extract: before
+  -
+    method: corptag.add
+    name: '$(name)'
+  -
+    method: corptag.get
+  -
+    path: '$..tag[?(@.name != "")]'
+    extract: after
+  -
+    assertion: [1, 'eq', 1]
+  -
+    assertion: 'len([1,2]) < len([1])'
+  -
+    assertion: 'len(before) == len(after) +1'
 
 test_delete2:
   - 
@@ -14,7 +51,10 @@ test_delete2:
     query: {}
     json: {}
     extract: ''
+  -
+    extract: '$..tag[?(@.name=="{name}")]'
+    name: name
   - 
     method: delete
-    assertion: xxx
+    conditions: conditions
 

@@ -1,6 +1,23 @@
 import requests
 from urllib.parse import urljoin
 from test_requests.test_wework.api.wework import WeWork
+from test_requests.test_wework.api.base_api import BaseApi
+
+
+def api(func):
+    def magic(*args, **kwargs):
+        base_api: BaseApi = args[0]
+
+        base_api._params = kwargs
+
+        method = func.__name__
+        req = base_api.api_load('test_requests/test_wework/api/corp_tag.api.yml')[method]
+
+        return base_api.api_send(req)
+
+        # func(*args, **kwargs)
+
+    return magic
 
 
 class CorpTag(WeWork):
@@ -17,7 +34,7 @@ class CorpTag(WeWork):
 
         self.api_data = self.api_load('test_requests/test_wework/api/corp_tag.api.yml')
 
-    def get(self, body={}):
+    def get(self, body={}, **kwargs):
         '''步骤驱动'''
 
         r = self.api_send(self.api_data['get'])
@@ -67,3 +84,6 @@ class CorpTag(WeWork):
         r = self.api_send(self.api_data['delete'])
         return r
 
+    @api
+    def decorator(self, test):
+        pass

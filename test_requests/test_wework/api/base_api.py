@@ -1,4 +1,5 @@
 import json
+from typing import List
 import yaml
 import requests
 from jsonpath import jsonpath
@@ -6,18 +7,21 @@ from jsonpath import jsonpath
 
 class BaseApi:
     _params = {}
+    _result = {}
 
     def __init__(self):
         pass
 
     @classmethod
-    def format(cls, r):
-        cls.r = r
+    def format(cls, resp):
+        cls.resp = resp
 
-        print(json.dumps(json.loads(r.text), indent=2, ensure_ascii=False))
+        print(json.dumps(json.loads(resp.text), indent=2, ensure_ascii=False))
 
-    def jsonpath(self, r, path):
-        return jsonpath(r, path)
+    def jsonpath(self, path, resp=None, **kwagrs):
+        if resp is None:
+            resp = self.resp
+        return jsonpath(resp, path)
 
     def api_load(self, path):
         return self.yaml_load(path)
@@ -35,6 +39,7 @@ class BaseApi:
         
         req = yaml.safe_load(raw)
 
+        print('+++++++++++request+++++++++++++')
         print(req)
 
         # req_params = req['params']
@@ -42,13 +47,47 @@ class BaseApi:
         # if isinstance(req_params, dict):
         #     req_params.update()
 
-        r = requests.request(
+        resp = requests.request(
             req['method'],
             url=req['url'],
             params=req['params'],
             json=req['json']
         )
-        return r.json()
+
+        self.format(resp)
+
+        return resp.json()
+
+    # 模拟类型httprunner的数据
+    def steps_run(self, steps: List[dict]):
+
+        for step in steps:
+            # 模板内容替换
+            # TODO: format实现
+            # 将req转为字符串方便替换
+            raw:str = yaml.dump(step)
+            for k, v in self._params.items():
+                # repr 将对象转化为供解释器读取的形式，如符号*
+                raw = raw.replace(f"${{{k}}}", repr(v))
+            step = yaml.safe_load(raw)
+
+            if 'method' in  step.keys():
+                method = step['method'].split('.')[-1]
+                # 获取方法名为method的方法执行
+                getattr(self, method)(**step)
+            
+            if 'extract' in step.keys():
+                self._result[step['extract']] = self.jsonpath(**step)
+            
+            if 'assertion' in step.keys():
+                assertion = step['assertion']
+                if isinstance(assertion, str):
+                    # eval有安全问题，可以借鉴httprunner，封装常用的断言，复杂的使用自定义函数，使用特殊标记（如$()）
+                    # TODO: 完善
+                    assert eval(assertion)
+
+                if assertion[1] == 'eq':
+                    assert assertion[0] == assertion[2]
 
     @classmethod
     def yaml_load(self, path) -> list:

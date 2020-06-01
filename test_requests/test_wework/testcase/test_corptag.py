@@ -5,6 +5,7 @@ from test_requests.test_wework.api.corp_tag import CorpTag
 
 class TestCorpTag():
     test_data = BaseApi.yaml_load('test_requests/test_wework/testcase/test_corptag.data.yml')
+    test_steps = BaseApi.yaml_load('test_requests/test_wework/testcase/test_corptag.step.yml')
 
     @classmethod
     def setup_class(cls):
@@ -134,6 +135,19 @@ class TestCorpTag():
         # 断言
         print(r)
         assert r['errcode'] == 0
+
+    @pytest.mark.parametrize('name', test_data['test_delete'])
+    def test_delete_step(self, name):
+        self.corptag._params['name'] = name
+        self.corptag.steps_run(self.test_steps['test_delete'])
+
+    @pytest.mark.parametrize('name', test_data['test_add'])
+    def test_add_step(self, name):
+        self.corptag._params['name'] = name
+        self.corptag.steps_run(self.test_steps['test_add'])
+
+    def test_decorator(self):
+        self.corptag.decorator()
 
     @classmethod
     def teardown_class(cls):
