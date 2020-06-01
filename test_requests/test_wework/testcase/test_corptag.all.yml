@@ -1,0 +1,24 @@
+test_add:
+  data: ['demo1', '中文测试', '*', '', '123']
+  steps:
+    - 
+      method: corptag.get
+    -
+      path: '$..tag[?(@.name != "")]'
+      extract: before
+    -
+      method: corptag.add
+      name: '${name}'
+    -
+      method: corptag.get
+    -
+      path: '$..tag[?(@.name != "")]'
+      extract: after
+    -
+      assertion: [1, 'eq', 1]
+    -
+      assertion: 'len([1,2]) > len([1])'
+    # -
+    #   assertion: 'len(before) == len(after) +1'
+
+

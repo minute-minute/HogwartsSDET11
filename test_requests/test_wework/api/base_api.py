@@ -14,7 +14,7 @@ class BaseApi:
 
     @classmethod
     def format(cls, resp):
-        cls.resp = resp
+        cls.resp = resp.json()
 
         print(json.dumps(json.loads(resp.text), indent=2, ensure_ascii=False))
 
@@ -22,6 +22,13 @@ class BaseApi:
         if resp is None:
             resp = self.resp
         return jsonpath(resp, path)
+
+    def encode_base64(self, content):
+        pass
+
+    def decode_base64(self, content):
+        # 把加密后的内容，解密，再生成解构化的数据返回
+        return content
 
     def api_load(self, path):
         return self.yaml_load(path)
@@ -39,8 +46,11 @@ class BaseApi:
         
         req = yaml.safe_load(raw)
 
-        print('+++++++++++request+++++++++++++')
+        print('\n+++++++++++request+++++++++++++')
         print(req)
+
+        # TODO: 加密
+        req['xxx'] = self.encode_base64(req['xxx'])
 
         # req_params = req['params']
         # # 通过ininstance可以使取出来的变量含有类型，方便后续使用
@@ -55,6 +65,9 @@ class BaseApi:
         )
 
         self.format(resp)
+
+        # TODO: 解密
+        resp['xxx'] = self.encode_base64(resp['xxx'])
 
         return resp.json()
 

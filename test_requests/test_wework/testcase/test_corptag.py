@@ -13,6 +13,13 @@ class TestCorpTag():
 
         cls.corptag = CorpTag()
 
+        # 清除数据
+        cls.corptag.get()
+        for name in cls.test_data['test_add']:
+            x = cls.corptag.jsonpath("$..tag[?(@.name=='{}')]".format(name))
+            if x:
+                cls.corptag.delete(tag_id=[x[0]['id']])
+
     def test_get_api_corp_tag(self):
 
         r = self.corptag.get()
@@ -147,6 +154,7 @@ class TestCorpTag():
         self.corptag.steps_run(self.test_steps['test_add'])
 
     def test_decorator(self):
+
         self.corptag.decorator()
 
     @classmethod

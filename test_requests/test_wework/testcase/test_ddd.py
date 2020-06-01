@@ -3,22 +3,25 @@ from test_requests.test_wework.api.base_api import BaseApi
 from test_requests.test_wework.api.corp_tag import CorpTag
 
 
-class TestCorpTag():
-    test_data = BaseApi.yaml_load('test_requests/test_wework/testcase/test_corptag.data.yml')
-    test_steps = BaseApi.yaml_load('test_requests/test_wework/testcase/test_corptag.step.yml')
+class TestDDD():
+    test_data = BaseApi.yaml_load('test_requests/test_wework/testcase/test_corptag.all.yml')
 
     @classmethod
     def setup_class(cls):
-        # TODO： 删除测试数据，将需要数据封装
-
         cls.corptag = CorpTag()
 
-    @pytest.mark.parametrize('name', test_data['test_add'])
+        # 清除数据
+        cls.corptag.get()
+        for name in cls.test_data['test_add']['data']:
+            x = cls.corptag.jsonpath("$..tag[?(@.name=='{}')]".format(name))
+            if x:
+                cls.corptag.delete(tag_id=[x[0]['id']])
+
+    @pytest.mark.parametrize('name', test_data['test_add']['data'])
     def test_add_step(self, name):
         self.corptag._params['name'] = name
-        self.corptag.steps_run(self.test_steps['test_add'])
+        self.corptag.steps_run(self.test_data['test_add']['steps'])
 
     @classmethod
     def teardown_class(cls):
-        # teardown清空数据风险比较大，因为一些异常强制退出执行case（如直接kill），会导致走不到teardown
         pass

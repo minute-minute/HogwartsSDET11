@@ -38,6 +38,7 @@ class CorpTag(WeWork):
         '''步骤驱动'''
 
         r = self.api_send(self.api_data['get'])
+
         return r
 
     # def get(self, body={}):
@@ -54,6 +55,7 @@ class CorpTag(WeWork):
         self._params['name'] = name
 
         r = self.api_send(self.api_data['add'])
+
         return r
 
     # def add(self, body):

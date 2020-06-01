@@ -31,7 +31,7 @@ test_add:
     extract: before
   -
     method: corptag.add
-    name: '$(name)'
+    name: '${name}'
   -
     method: corptag.get
   -
